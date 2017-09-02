@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Cache {
 	private HashSet<Integer> cache;
@@ -42,5 +44,9 @@ public class Cache {
 	 */
 	public boolean isFull() {
 		return cache.size() == size;
+	}
+	
+	public List<Integer> getObjectsInCache() {
+		return new ArrayList<Integer>(cache);
 	}
 }
