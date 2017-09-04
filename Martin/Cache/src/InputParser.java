@@ -1,3 +1,4 @@
+import java.io.InputStream;
 
 public class InputParser {
 	
@@ -7,8 +8,8 @@ public class InputParser {
 	private int referenceAmount;
 	private int[] references;
 	
-	public InputParser() {
-		kattio = new Kattio(System.in);
+	public InputParser(InputStream in) {
+		kattio = new Kattio(in);
 		initiate();
 	}
 	
@@ -22,12 +23,12 @@ public class InputParser {
 		}
 	}
 	
-	public Cache getCache() {
-		return new Cache(cacheSize);
-	}
-	
 	public FutureReferences getReferences() {
 		return new FutureReferences(references);
+	}
+	
+	public Cache getFastCache() {
+		return new Cache(cacheSize);
 	}
 
 }

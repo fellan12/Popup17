@@ -1,52 +1,80 @@
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Cache {
-	private HashSet<Integer> cache;
-	private int size;
-	
+
+	private LinkedList<CacheObject> cache;
+	private HashSet<Integer> containSet;
+
 	public Cache(int size) {
-		this.size = size;
-		this.cache = new HashSet<>();
+		initCache(size);
+		this.containSet = new HashSet<>();
 	}
 	
-	/**
-	 * Adds an int to the cache. If cache is already filled up, throws RunTimeException.
-	 */
-	public void add(int n) {
-		if (cache.size() == size) {
-			throw new RuntimeException("Cannot use method 'add' when cache is filled up. Use replace instead.");
+	private void initCache(int size) {
+		this.cache = new LinkedList<>();
+		CacheObject obj = new CacheObject(-1, Integer.MAX_VALUE);
+		for (int i = 0; i < size; i++) {
+			cache.add(obj);
 		}
-		cache.add(n);
+	}
+
+	/**
+	 * Replaces an old entry in the cache with a new one.
+	 */
+	public void add(int obj, int nextRef) {
+		CacheObject oldObj = cache.removeFirst();
+		containSet.remove(oldObj.id);
+		containSet.add(obj);
+		insertObjectIntoCache(new CacheObject(obj, nextRef));
 	}
 	
-	/**
-	 * Replaces an old entry in the cache with a new one. Throws RunTimeException if old one isn't in the cache.
-	 */
-	public void replace(int nev, int old) {
-		if (!cache.contains(old)) {
-			throw new RuntimeException("Trying to replace old "+old+", but it isn't inside the cache.");
+	private void insertObjectIntoCache(CacheObject obj) {
+		if (cache.size() == 0) {
+			cache.add(obj);
+			return;
+		} else if (obj.nextRef == Integer.MAX_VALUE-1) {
+			cache.add(0, obj);
+			return;
 		}
-		cache.remove(old);
-		cache.add(nev);
+		int lo = 0;
+		int hi = cache.size()-1;
+		int mid = -1;
+		int ref = -1;
+		while (lo <= hi) {
+			mid = lo + (hi - lo) / 2;
+			CacheObject compare = cache.get(mid);
+			ref = compare.nextRef;
+			if (obj.nextRef > compare.nextRef)
+				hi = mid-1;
+			else if (obj.nextRef < compare.nextRef)
+				lo = mid+1;
+			else
+				throw new RuntimeException("Trying to add an object already inside the cache!");
+		}
+		int index = mid + (ref < obj.nextRef ? 0 : 1);
+		cache.add(index, obj);
 	}
 	
 	/**
 	 * Returns whether the cache contains the argument
 	 */
-	public boolean contains(int n) {
-		return cache.contains(n);
+	public boolean contains(int obj) {
+		return containSet.contains(obj);
 	}
 	
-	/**
-	 * Returns whether the cache is full or not.
-	 */
-	public boolean isFull() {
-		return cache.size() == size;
-	}
-	
-	public List<Integer> getObjectsInCache() {
-		return new ArrayList<Integer>(cache);
+	private class CacheObject {
+		int id;
+		int nextRef;
+		
+		public CacheObject(int id, int nextRef) {
+			this.id = id;
+			this.nextRef = nextRef;
+		}
+		
+		@Override
+		public String toString() {
+			return "["+id+", "+nextRef+"]";
+		}
 	}
 }
