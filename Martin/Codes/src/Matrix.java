@@ -20,7 +20,7 @@ public class Matrix {
 	}
 	
 	protected byte helpMultiply(byte[] first, byte[] second) {
-		byte ret = 0;
+		int ret = 0;
 		for (int i = 0; i < first.length; i++) {
 			ret += first[i] * second[i];
 		}
