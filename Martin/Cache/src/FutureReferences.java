@@ -1,12 +1,9 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 public class FutureReferences {
 	
 	int[] references;
-	HashMap<Integer, List<Integer>> map;
+	HashMap<Integer, Elem> map;
 	int index;
 	
 	public FutureReferences(int[] references) {
@@ -18,14 +15,15 @@ public class FutureReferences {
 	/**
 	 * Initiates the map. Adds the indexes of each object in the reference list.
 	 */
-	private HashMap<Integer, List<Integer>> initiateMap() {
-		HashMap<Integer, List<Integer>> map = new HashMap<>();
+	private HashMap<Integer, Elem> initiateMap() {
+		HashMap<Integer, Elem> map = new HashMap<>();
 		for (int i = 0; i < references.length; i++) {
 			int object = references[i];
 			if (map.get(object) == null) {
-				map.put(object, new ArrayList<>());
+				map.put(object, new Elem(i));
+			} else {
+				map.get(object).pushBack(new Elem(i));
 			}
-			map.get(object).add(i);
 		}
 		return map;
 	}
@@ -42,22 +40,49 @@ public class FutureReferences {
 	
 	/**
 	 * Returns the next reference of an object.
-	 * Returns -1 if there is no more reference of the object.
+	 * Returns Integer.MAX_VALUE-1 if there is no more reference of the object.
 	 */
 	public int nextReference(int object) {
-		Iterator<Integer> it = map.get(object).iterator();
-		while (it.hasNext()) {
-			int i = it.next();
-			if (i < index) {
-				it.remove();
-			} else {
-				return i;
-			}
-		}
-		return -1;
+		if (map.get(object) == null)
+			return Integer.MAX_VALUE-1;
+		Elem next = map.get(object).getNext();
+		map.put(object, next);
+		int ret = next == null ? Integer.MAX_VALUE-1 : next.getIndex();
+		return ret;
 	}
 	
 	public boolean isEmpty() {
 		return index == references.length;
+	}
+	
+	/**
+	 * TODO
+	 */
+	private class Elem {
+		private Elem next;
+		private int index;
+		private Elem last;
+		
+		public Elem(int value) {
+			this.index = value;
+			this.last = this;
+		}
+		
+		public int getIndex() {
+			return index;
+		}
+		
+		private void setNext(Elem e) {
+			this.next = e;
+		}
+		
+		public Elem getNext() {
+			return next;
+		}
+		
+		public void pushBack(Elem e) {
+			last.setNext(e);
+			last = e;
+		}
 	}
 }
