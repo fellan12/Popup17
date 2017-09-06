@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 public class Cache {
 
-	private LinkedList<CacheObject> cache;
+	private ArrayList<CacheObject> cache;
 	private HashSet<Integer> containSet;
 
 	public Cache(int size) {
@@ -12,7 +12,7 @@ public class Cache {
 	}
 	
 	private void initCache(int size) {
-		this.cache = new LinkedList<>();
+		this.cache = new ArrayList<>(size);
 		CacheObject obj = new CacheObject(-1, Integer.MAX_VALUE);
 		for (int i = 0; i < size; i++) {
 			cache.add(obj);
@@ -23,7 +23,7 @@ public class Cache {
 	 * Replaces an old entry in the cache with a new one.
 	 */
 	public void add(int obj, int nextRef) {
-		CacheObject oldObj = cache.removeFirst();
+		CacheObject oldObj = cache.remove(0);
 		containSet.remove(oldObj.id);
 		containSet.add(obj);
 		insertObjectIntoCache(new CacheObject(obj, nextRef));

@@ -27,7 +27,7 @@ public class InputParser {
 		return new FutureReferences(references);
 	}
 	
-	public Cache getFastCache() {
+	public Cache getCache() {
 		return new Cache(cacheSize);
 	}
 

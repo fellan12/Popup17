@@ -4,6 +4,10 @@ import java.io.ByteArrayInputStream;
 public class Tester {
 
 	public static void main(String[] args) {
+		findFault();
+	}
+	
+	private static void time() {
 		String testCase = null;
 		long time = 0;
 		try {
@@ -15,5 +19,9 @@ public class Tester {
 			System.out.println(testCase);
 		}
 		System.out.println(System.currentTimeMillis() - time);
+	}
+	
+	private static void findFault() {
+		//TODO
 	}
 }

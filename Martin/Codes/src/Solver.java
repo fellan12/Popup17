@@ -12,7 +12,7 @@ public class Solver {
 	
 	public int calcMinimumDistance(DistanceMatrix m) {
 		int ret = Integer.MAX_VALUE;
-		for (byte[] cw : getCodeWords(m.getWidth())) {
+		for (byte[] cw : getStrings(m.getWidth())) {
 			int dist = m.multiplyGetDist(cw);
 			if (dist != 0 && dist < ret)
 				ret = dist;
@@ -20,7 +20,7 @@ public class Solver {
 		return ret;
 	}
 	
-	private byte[][] getCodeWords(int amount) {
+	private byte[][] getStrings(int amount) {
 		byte[][] codewords;
 		if (map.containsKey(amount)) {
 			codewords = map.get(amount);

@@ -1,27 +1,24 @@
-import java.util.Arrays;
-
 public class StringGenerator {
-
+	
 	public byte[][] generate(int k) {
-		int amount = (k*(k+1))/2;
+		int amount = (int) Math.pow(2, k) - 1;
 		byte[][] strings = new byte[amount][k];
-		int i = 0;
-		int index = 0;
-		byte[] b = new byte[k];
-		while (i < k) {
-			int j = i;
-			while (j < k) {
-				b[j] = 1;
-				strings[index] = Arrays.copyOf(b, b.length);
-				b[j] = 0;
-				index++;
-				j++;
-			}
-			b[i] = 1;
-			i++;
+		for (int i = 1; i <= amount; i++) {
+			strings[i-1] = toBinary(i, k);
 		}
 		//printStrings(strings);
 		return strings;
+	}
+	
+	private byte[] toBinary(int number, int base) {
+	    final byte[] ret = new byte[base];
+	    for (int i = 0; i < base; i++) {
+	    	byte n = 0;
+	    	if ((1 << i & number) != 0)
+	    		n = 1;
+	    	ret[base - 1 - i] = n;
+	    }
+	    return ret;
 	}
 	
 	public void printStrings(byte[][] strings) {

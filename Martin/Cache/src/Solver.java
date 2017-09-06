@@ -10,7 +10,7 @@ public class Solver {
 	public Solver(PrintWriter kattio, InputStream in) {
 		this.kattio = kattio;
 		InputParser parser = new InputParser(in);
-		cache = parser.getFastCache();
+		cache = parser.getCache();
 		references = parser.getReferences();
 		solve();
 	}

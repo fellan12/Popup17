@@ -8,15 +8,15 @@ public class FutureReferences {
 	
 	public FutureReferences(int[] references) {
 		this.references = references;
-		map = initiateMap();
+		initiateMap();
 		index = 0;
 	}
 	
 	/**
 	 * Initiates the map. Adds the indexes of each object in the reference list.
 	 */
-	private HashMap<Integer, Elem> initiateMap() {
-		HashMap<Integer, Elem> map = new HashMap<>();
+	private void initiateMap() {
+		map = new HashMap<>();
 		for (int i = 0; i < references.length; i++) {
 			int object = references[i];
 			if (map.get(object) == null) {
@@ -25,7 +25,6 @@ public class FutureReferences {
 				map.get(object).pushBack(new Elem(i));
 			}
 		}
-		return map;
 	}
 	
 	public int peekFirst() {
@@ -43,9 +42,10 @@ public class FutureReferences {
 	 * Returns Integer.MAX_VALUE-1 if there is no more reference of the object.
 	 */
 	public int nextReference(int object) {
-		if (map.get(object) == null)
+		Elem e = map.get(object);
+		if (e == null)
 			return Integer.MAX_VALUE-1;
-		Elem next = map.get(object).getNext();
+		Elem next = e.getNext();
 		map.put(object, next);
 		int ret = next == null ? Integer.MAX_VALUE-1 : next.getIndex();
 		return ret;
