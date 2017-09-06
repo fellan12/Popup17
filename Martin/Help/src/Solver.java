@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Solver {
 
 	private Kattio kattio;
@@ -34,11 +36,8 @@ public class Solver {
 				elemsA[i] = e2;
 			}
 		}
-		if (a.matches(elemsA)) {
-			printAnswer(elemsA);
-		} else {
-			kattio.println("-");
-		}
+		
+		printAnswer(elemsA);
 	}
 
 	/**
@@ -46,12 +45,13 @@ public class Solver {
 	 */
 	private void printAnswer(Element[] elems) {
 		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
 		for (Element e : elems) {
 			if (e.getType() == Type.PLACEHOLDER) {
-				kattio.println("-");
-				return;
+				sb.append("martin").append(" ");
+			} else {
+				sb.append(e.getValue()).append(" ");
 			}
-			sb.append(e.getValue()).append(" ");
 		}
 		kattio.println(sb.toString());
 	}

@@ -51,15 +51,6 @@ public class Pattern {
 		return index;
 	}
 	
-	public boolean matches(Element[] elems) {
-		int start = getUniqueAmount();
-		Pattern p = new Pattern();
-		for (Element e : elems) {
-			p.add(e);
-		}
-		return p.getUniqueAmount() == start;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
