@@ -23,8 +23,8 @@ public class InputParser {
 		}
 	}
 	
-	public FutureReferences getReferences() {
-		return new FutureReferences(references);
+	public FutureAccesses getAccesses() {
+		return new FutureAccesses(references);
 	}
 	
 	public Cache getCache() {

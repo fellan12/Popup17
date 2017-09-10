@@ -4,18 +4,22 @@ import java.util.List;
 
 public class Pattern {
 
+	private Element[] elements;
 	private HashMap<Element, List<Integer>> map;
 	private int index;
+	private boolean updated;
 	
 	public Pattern() {
 		this.index = 0;
 		this.map = new HashMap<>();
+		this.updated = true;
 	}
 	
 	/**
 	 * Adds an element to the pattern
 	 */
 	public void add(Element e) {
+		this.updated = false;
 		List<Integer> list;
 		if (!map.containsKey(e)) {
 			list = new LinkedList<>();
@@ -27,17 +31,38 @@ public class Pattern {
 		index++;
 	}
 	
-	/**
-	 * Returns the elements in the pattern as an array
-	 */
 	public Element[] getElements() {
-		Element[] elems = new Element[index];
+		return elements;
+	}
+	
+	/**
+	 * Updates the pattern. Must be called before calling get
+	 */
+	private void update() {
+		elements = new Element[index];
 		for (Element e : map.keySet()) {
 			for (int i : map.get(e)) {
-				elems[i] = e;
+				elements[i] = e;
 			}
 		}
-		return elems;
+		this.updated = true;
+	}
+	
+	public Element get(int i) {
+		if (!updated)
+			update();
+		return elements[i];
+	}
+	
+	public void replace(Element from, Element to) {
+		if (!map.containsKey(from))
+			return;
+		this.updated = false;
+		List<Integer> list = map.remove(from);
+		if (map.containsKey(to)) {
+			list.addAll(map.get(to));
+		}
+		map.put(to, list);
 	}
 	
 	public int getUniqueAmount() {
@@ -54,7 +79,8 @@ public class Pattern {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (Element e : getElements()) {
+		update();
+		for (Element e : elements) {
 			sb.append(e.getValue()).append(" ");
 		}
 		return sb.toString();

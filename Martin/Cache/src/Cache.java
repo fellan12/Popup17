@@ -1,59 +1,29 @@
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public class Cache {
 
-	private ArrayList<CacheObject> cache;
+	//private ArrayList<CacheObject> cache;
 	private HashSet<Integer> containSet;
+	private PriorityQueue<CacheObject> cache;
+	private int maxSize;
 
 	public Cache(int size) {
-		initCache(size);
+		this.cache = new PriorityQueue<>(size, new ObjectComparator());
 		this.containSet = new HashSet<>();
-	}
-	
-	private void initCache(int size) {
-		this.cache = new ArrayList<>(size);
-		CacheObject obj = new CacheObject(-1, Integer.MAX_VALUE);
-		for (int i = 0; i < size; i++) {
-			cache.add(obj);
-		}
+		this.maxSize = size;
 	}
 
 	/**
 	 * Replaces an old entry in the cache with a new one.
 	 */
 	public void add(int obj, int nextRef) {
-		CacheObject oldObj = cache.remove(0);
-		containSet.remove(oldObj.id);
+		if (cache.size() == maxSize) {
+			containSet.remove(cache.poll().id);
+		}
+		cache.offer(new CacheObject(obj, nextRef));
 		containSet.add(obj);
-		insertObjectIntoCache(new CacheObject(obj, nextRef));
-	}
-	
-	private void insertObjectIntoCache(CacheObject obj) {
-		if (cache.size() == 0) {
-			cache.add(obj);
-			return;
-		} else if (obj.nextRef == Integer.MAX_VALUE-1) {
-			cache.add(0, obj);
-			return;
-		}
-		int lo = 0;
-		int hi = cache.size()-1;
-		int mid = -1;
-		int ref = -1;
-		while (lo <= hi) {
-			mid = lo + (hi - lo) / 2;
-			CacheObject compare = cache.get(mid);
-			ref = compare.nextRef;
-			if (obj.nextRef > compare.nextRef)
-				hi = mid-1;
-			else if (obj.nextRef < compare.nextRef)
-				lo = mid+1;
-			else
-				throw new RuntimeException("Trying to add an object already inside the cache!");
-		}
-		int index = mid + (ref < obj.nextRef ? 0 : 1);
-		cache.add(index, obj);
 	}
 	
 	/**
@@ -61,6 +31,11 @@ public class Cache {
 	 */
 	public boolean contains(int obj) {
 		return containSet.contains(obj);
+	}
+	
+	@Override
+	public String toString() {
+		return cache.toString();
 	}
 	
 	private class CacheObject {
@@ -76,5 +51,14 @@ public class Cache {
 		public String toString() {
 			return "["+id+", "+nextRef+"]";
 		}
+	}
+	
+	private class ObjectComparator implements Comparator<CacheObject> {
+
+		@Override
+		public int compare(CacheObject o1, CacheObject o2) {
+			return Integer.compare(o2.nextRef, o1.nextRef);
+		}
+		
 	}
 }
