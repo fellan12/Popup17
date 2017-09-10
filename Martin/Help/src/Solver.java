@@ -18,40 +18,41 @@ public class Solver {
 			kattio.println("-");
 			return;
 		}
-		Element[] elemsA = a.getElements();
-		Element[] elemsB = b.getElements();
 		for (int i = 0; i < a.getSize(); i++) {
-			Element e1 = elemsA[i];
-			Element e2 = elemsB[i];
+			Element e1 = a.get(i);
+			Element e2 = b.get(i);
 			if (e1.getType() == Type.WORD && e2.getType() == Type.WORD) {
 				if (!e1.getValue().equals(e2.getValue())) {
 					kattio.println("-");
 					return;
 				}
 			} else if (e1.getType() == Type.WORD && e2.getType() == Type.PLACEHOLDER) {
-				e2.copy(e1);
+				b.replace(e2, e1);
+				a.replace(e2, e1);
 			} else if (e1.getType() == Type.PLACEHOLDER && e2.getType() == Type.WORD) {
-				e1.copy(e2);
+				a.replace(e1, e2);
+				b.replace(e1, e2);
 			} else { // Both placeholders
-				elemsA[i] = e2;
+				a.replace(e1, e2);
 			}
 		}
 		
-		printAnswer(elemsA);
+		printAnswer(a);
 	}
 
 	/**
 	 * Prints the answer
 	 */
-	private void printAnswer(Element[] elems) {
+	private void printAnswer(Pattern pattern) {
 		StringBuilder sb = new StringBuilder();
 		Random r = new Random();
-		for (Element e : elems) {
+		for (Element e : pattern.getElements()) {
 			if (e.getType() == Type.PLACEHOLDER) {
-				sb.append("martin").append(" ");
+				sb.append("martin");
 			} else {
-				sb.append(e.getValue()).append(" ");
+				sb.append(e.getValue());
 			}
+			sb.append(" ");
 		}
 		kattio.println(sb.toString());
 	}

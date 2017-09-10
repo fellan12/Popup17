@@ -5,17 +5,16 @@ public class Solver {
 	
 	private PrintWriter kattio;
 	private Cache cache;
-	private FutureReferences references;
+	private FutureAccesses accesses;
 
 	public Solver(PrintWriter kattio, InputStream in) {
 		this.kattio = kattio;
 		InputParser parser = new InputParser(in);
 		cache = parser.getCache();
-		references = parser.getReferences();
-		solve();
+		accesses = parser.getAccesses();
 	}
 	
-	private void solve() {
+	public void solve() {
 		int accesses = calcAccesses();
 		kattio.println(accesses);
 		kattio.flush();
@@ -26,18 +25,19 @@ public class Solver {
 	 * Calculates the least amount of accesses needed and returns it.
 	 */
 	private int calcAccesses() {
-		int accesses = 0;
-		while (!references.isEmpty()) {
-			int obj = references.removeFirst();
+		int acc = 0;
+		while (!accesses.isEmpty()) {
+			int obj = accesses.removeFirst();
 			if (!cache.contains(obj)) {
-				accesses++;
-				cache.add(obj, references.nextReference(obj));
+				acc++;
+				cache.add(obj, accesses.nextAccess(obj));
 			}
 		}
-		return accesses;
+		return acc;
 	}
 	
 	public static void main(String[] args) {
-		new Solver(new Kattio(System.in), System.in);
+		Solver solver = new Solver(new Kattio(System.in), System.in);
+		solver.solve();
 	}
 }
