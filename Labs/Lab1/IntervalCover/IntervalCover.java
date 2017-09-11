@@ -55,48 +55,52 @@ public class IntervalCover {
     io.close();
   }
 
-  public static ArrayList<Integer> cover(Interval targetInterval, ArrayList<Interval> intervals) {
-    ArrayList<Integer> indexes = new ArrayList<Integer>();
-    //Sort interval
+  public static ArrayList<Integer> cover(Interval target, ArrayList<Interval> intervals) {
+    //Sort the intervals based on their starting point (increasing order)
     Collections.sort(intervals);
-    return coverHelper(targetInterval, intervals, indexes);
-  }
+    double start = target.getStart();
+    double end = target.getEnd();
+    ArrayList<Integer> res = new ArrayList<Integer>();
+    double farthest = start;
+    while (true) {
+      int intervalIndex = -1;
+      int index = -1;
+      for (int i=0; i<intervals.size(); i++) {
+        Interval interval = intervals.get(i);
+        //Remove intervals outside targetInterval
+        if (interval.getEnd() < start || interval.getStart() > end) {
+          intervals.remove(i);
+          i--;
+          index = (index != -1 ? index-- : index);
+        }
 
-  private static ArrayList<Integer> coverHelper(Interval targetInterval, ArrayList<Interval> intervals, ArrayList<Integer> indexes) {
-    double farthest = targetInterval.getStart();
-    int intervalIndex = -1;
-    int index = -1;
-    for (int i=0; i<intervals.size(); i++) {
-      Interval interval = intervals.get(i);
-      if(interval.getEnd() < targetInterval.getStart() || interval.getStart() > targetInterval.getEnd()){
-        intervals.remove(i);
-        i--;
-        index = (index != -1 ? index-- : index);
-      } else if (interval.getStart() <= targetInterval.getStart() && interval.getEnd() >= farthest) {
-        farthest = interval.getEnd();
-        intervalIndex = interval.getIndex();
-        index = i;
-      } else if (interval.getStart() > targetInterval.getStart()){
-        break;
+        //Get the interval that gets you the farthest
+        else if (interval.getStart() <= start && interval.getEnd() >= farthest) {
+          farthest = interval.getEnd();
+          intervalIndex = interval.getIndex();
+          index = i;
+        }
+
+        //There is no interval that starts before targetsInterval
+        else if (interval.getStart() > start){
+          break;
+        }
+      }
+
+      if (intervalIndex == -1) {
+        return null;
+      }
+
+      try {
+        res.add(intervalIndex);
+        intervals.remove(index);
+      }
+      catch (Exception e) {}
+
+        if (farthest >= end) {	//done
+          return res;
+        }
+        start = farthest;
       }
     }
-
-    if (intervalIndex == -1) {
-      return null;
-    }
-
-    try{
-      indexes.add(intervalIndex);
-      intervals.remove(index);
-    }catch (Exception e){
-      e.printStackTrace();
-    }
-
-    //Need recurse more
-    if (farthest < targetInterval.getEnd()) {
-      return coverHelper(new Interval(-1, farthest, targetInterval.getEnd()), intervals, indexes);
-    }else{
-      return indexes;
-    }
   }
-}
