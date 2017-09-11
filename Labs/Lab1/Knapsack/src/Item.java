@@ -1,12 +1,18 @@
 
-public class Item {
+public class Item implements Comparable<Item>{
 
 	private int value;
 	private int weight;
+	private int index;
 
-	public Item(int value, int weight) {
+	public Item(int index, int value, int weight) {
+		this.index = index;
 		this.value = value;
 		this.weight = weight;
+	}
+
+	public int getIndex(){
+		return index;
 	}
 
 	public int getValue() {
@@ -16,4 +22,14 @@ public class Item {
 	public int getWeight() {
 		return weight;
 	}
+
+	@Override
+	public String toString(){
+		return index + " - (Value: " + value + ", Weight: " + weight + ")";
+	}
+
+	@Override
+  public int compareTo(Item other){
+		return Integer.compare(this.getWeight(), other.getWeight());
+  }
 }
