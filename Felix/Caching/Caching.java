@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Queue;
 
-public class Caching4 {
+public class Caching {
 
   static boolean debug = false;
   static Kattio io = new Kattio(System.in, System.out);
@@ -35,7 +35,7 @@ public class Caching4 {
 
     //Calculate Accesses
     int cached = 0;
-    int cacheMisses = 0;
+    int replace = 0;
     for(int i = 0; i < Hit.length; i++) {
       int value = Hit[i];
       ItemInfo info = objects.get(value);
@@ -48,7 +48,7 @@ public class Caching4 {
           Item Item = cache.poll();
           ItemInfo removedPageInfo = objects.get(Item.getID());
           removedPageInfo.setCacheStatus(false);
-          cacheMisses++;
+          replace++;
         } else {
           //Cache is not full
           cached++;
@@ -73,11 +73,12 @@ public class Caching4 {
       cache.add(new Item(value, weight));
       info.setCacheStatus(true);
     }
-    int updates = c + cacheMisses;
+    int updates = 0;
     if(cached < c) {
-      updates = cached;
+      io.println(cached);
+    }else{
+      io.println(c + replace);
     }
-    io.println(updates);
     io.close();
   }
 
