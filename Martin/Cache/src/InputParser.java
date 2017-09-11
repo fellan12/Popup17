@@ -4,9 +4,9 @@ public class InputParser {
 	
 	private Kattio kattio;
 	private int cacheSize;
-	//private int objectAmount;
-	private int referenceAmount;
-	private int[] references;
+	private int objectAmount;
+	private int accessAmount;
+	private int[] accesses;
 	
 	public InputParser(InputStream in) {
 		kattio = new Kattio(in);
@@ -15,20 +15,20 @@ public class InputParser {
 	
 	private void initiate() {
 		this.cacheSize = kattio.getInt();
-		/*this.objectAmount = */kattio.getInt();
-		this.referenceAmount = kattio.getInt();
-		this.references = new int[referenceAmount];
-		for (int i = 0; i < references.length; i++) {
-			references[i] = kattio.getInt();
+		this.objectAmount = kattio.getInt();
+		this.accessAmount = kattio.getInt();
+		this.accesses = new int[accessAmount];
+		for (int i = 0; i < accesses.length; i++) {
+			accesses[i] = kattio.getInt();
 		}
 	}
 	
 	public FutureAccesses getAccesses() {
-		return new FutureAccesses(references);
+		return new FutureAccesses(accesses);
 	}
 	
 	public Cache getCache() {
-		return new Cache(cacheSize);
+		return new Cache(cacheSize, objectAmount);
 	}
 
 }

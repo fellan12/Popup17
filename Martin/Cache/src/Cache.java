@@ -5,13 +5,15 @@ import java.util.PriorityQueue;
 public class Cache {
 
 	//private ArrayList<CacheObject> cache;
-	private HashSet<Integer> containSet;
+	//private HashSet<Integer> containSet;
+	private boolean[] contains;
 	private PriorityQueue<CacheObject> cache;
 	private int maxSize;
 
-	public Cache(int size) {
+	public Cache(int size, int objectAmount) {
 		this.cache = new PriorityQueue<>(size, new ObjectComparator());
-		this.containSet = new HashSet<>();
+		//this.containSet = new HashSet<>();
+		contains = new boolean[objectAmount];
 		this.maxSize = size;
 	}
 
@@ -20,17 +22,20 @@ public class Cache {
 	 */
 	public void add(int obj, int nextRef) {
 		if (cache.size() == maxSize) {
-			containSet.remove(cache.poll().id);
+			//containSet.remove(cache.poll().id);
+			contains[cache.poll().id] = false;
 		}
 		cache.offer(new CacheObject(obj, nextRef));
-		containSet.add(obj);
+		//containSet.add(obj);
+		contains[obj] = true;
 	}
 	
 	/**
 	 * Returns whether the cache contains the argument
 	 */
 	public boolean contains(int obj) {
-		return containSet.contains(obj);
+		//return containSet.contains(obj);
+		return contains[obj];
 	}
 	
 	@Override
