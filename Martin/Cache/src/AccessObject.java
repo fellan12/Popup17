@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccessObject {
+public class AccessObject implements Comparable<AccessObject> {
 	
 	private int id;
 	private List<Integer> futureAccesses;
@@ -48,5 +48,15 @@ public class AccessObject {
 	
 	public int getId() {
 		return id;
+	}
+	
+	@Override
+	public int compareTo(AccessObject o) {
+		return o.getNextAccess() - this.getNextAccess();
+	}
+	
+	@Override
+	public String toString() {
+		return "["+id+","+getNextAccess()+"]";
 	}
 }
