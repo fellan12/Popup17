@@ -1,3 +1,4 @@
+package good;
 
 public class PatternPair extends Pair<Pattern> {
 

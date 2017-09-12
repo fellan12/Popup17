@@ -1,3 +1,4 @@
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,30 +15,24 @@ public class InputParser {
 		scanner = new Scanner(System.in);
 	}
 	
-	public List<PatternPair> getPairs() {
+	public List<Element[]> getLines() {
 		int amount = Integer.parseInt(scanner.nextLine());
-		List<PatternPair> pairs = new ArrayList<>();
-		for (int i = 0; i < amount; i++) {
-			String line1 = scanner.nextLine();
-			String line2 = scanner.nextLine();
-			pairs.add(getPair(line1, line2));
+		List<Element[]> elems = new ArrayList<>();
+		for (int i = 0; i < amount*2; i++) {
+			elems.add(getNext(scanner.nextLine()));
 		}
-		return pairs;
+		return elems;
 	}
-
-	private PatternPair getPair(String line1, String line2) {
-		Kattio kattio = new Kattio(new ByteArrayInputStream(line1.getBytes()));
-		Pattern first = getElementList(kattio);
-		kattio = new Kattio(new ByteArrayInputStream(line2.getBytes()));
-		Pattern second = getElementList(kattio);
-		return new PatternPair(first, second);
-	}
-
-	private Pattern getElementList(Kattio kattio) {
-		Pattern pattern = new Pattern();
+	
+	private Element[] getNext(String line) {
+		List<Element> elems = new ArrayList<>();
+		Kattio kattio = new Kattio(new ByteArrayInputStream(line.getBytes()));
 		while (kattio.hasMoreTokens()) {
-			pattern.add(kattio.getWord());
+			elems.add(new Element(kattio.getWord()));
 		}
-		return pattern;
+		//kattio.close();
+		Element[] e = new Element[elems.size()];
+		return elems.toArray(e);
 	}
+
 }

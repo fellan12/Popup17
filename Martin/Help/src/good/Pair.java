@@ -1,3 +1,4 @@
+package good;
 
 public class Pair<T> {
 

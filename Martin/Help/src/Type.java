@@ -1,1 +1,4 @@
-public enum Type {WORD, PLACEHOLDER}
+
+public enum Type {
+	WORD, PLACEHOLDER;
+}
