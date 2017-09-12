@@ -1,3 +1,4 @@
+package good;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,18 +9,21 @@ public class Pattern {
 	private HashMap<Element, List<Integer>> map;
 	private int index;
 	private boolean updated;
+	private int id;
 	
 	public Pattern() {
 		this.index = 0;
 		this.map = new HashMap<>();
 		this.updated = true;
+		this.id = PatterIdGenerator.generate();
 	}
 	
 	/**
 	 * Adds an element to the pattern
 	 */
-	public void add(Element e) {
+	public void add(String word) {
 		this.updated = false;
+		Element e = new Element(word, id);
 		List<Integer> list;
 		if (!map.containsKey(e)) {
 			list = new LinkedList<>();
@@ -32,6 +36,8 @@ public class Pattern {
 	}
 	
 	public Element[] getElements() {
+		if (!updated)
+			update();
 		return elements;
 	}
 	
@@ -84,6 +90,14 @@ public class Pattern {
 			sb.append(e.getValue()).append(" ");
 		}
 		return sb.toString();
+	}
+	
+	private static class PatterIdGenerator {
+		private static int i = 0;
+		
+		public static int generate() {
+			return i++;
+		}
 	}
 
 }

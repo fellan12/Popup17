@@ -1,3 +1,4 @@
+package good;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class InputParser {
 	private Pattern getElementList(Kattio kattio) {
 		Pattern pattern = new Pattern();
 		while (kattio.hasMoreTokens()) {
-			pattern.add(new Element(kattio.getWord()));
+			pattern.add(kattio.getWord());
 		}
 		return pattern;
 	}

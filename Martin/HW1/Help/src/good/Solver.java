@@ -1,3 +1,4 @@
+package good;
 import java.util.Random;
 
 public class Solver {

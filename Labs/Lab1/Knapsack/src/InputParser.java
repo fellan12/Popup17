@@ -1,24 +1,24 @@
 
 public class InputParser {
-	private Kattio felix;
+	private Kattio kattio;
 	
 	public InputParser() {
-		felix = new Kattio(System.in);
+		kattio = new Kattio(System.in);
 	}
 	
 	/**
 	 * Parses the next problem. If no such exists, returns null.
 	 */
 	public KnapsackProblem getNextProblem() {
-		if (!felix.hasMoreTokens())
+		if (!kattio.hasMoreTokens())
 			return null;
-		double cap = felix.getDouble();
-		int itemAmount = felix.getInt();
+		double cap = kattio.getDouble();
+		int itemAmount = kattio.getInt();
 		Item[] items = new Item[itemAmount];
 		for (int i = 0; i < items.length; i++) {
-			int value = felix.getInt();
-			int weight = felix.getInt();
-			Item item = new Item(value, weight);
+			int value = kattio.getInt();
+			int weight = kattio.getInt();
+			Item item = new Item(i, value, weight);
 			items[i] = item;
 		}
 		return new KnapsackProblem(cap, items);
