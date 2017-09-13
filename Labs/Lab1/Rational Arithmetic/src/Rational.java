@@ -110,7 +110,7 @@ public class Rational implements Comparable<Rational>{
   /*
   * Reduces a rational number to its smallest form
   */
-  private void reduce(Rational value){
+  public void reduce(Rational value){
     long div = -1;
     while(div != 1){
       div = GCD(value.getNumerator(), value.getDenominator());
