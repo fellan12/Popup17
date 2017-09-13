@@ -6,12 +6,12 @@
 
 public class UnionFind {
 
-    static Kattio io = new Kattio(System.in, System.out);
-    static int[] roots;
-    static int[] treeSizes;
-
-    public static void main(String[] args) {
-        int elements = io.getInt();
+    private Kattio io = new Kattio(System.in);
+    private int[] roots;
+    private int[] treeSizes;
+    
+    public void solve() {
+    	int elements = io.getInt();
         roots = new int[elements];
         treeSizes = new int[elements];
         for (int i = 0; i < elements; i++) {
@@ -21,8 +21,8 @@ public class UnionFind {
         int numOfOperations = io.getInt();
         for (int i = 0; i < numOfOperations; i++) {
             String operator = io.getWord();
-            String a = io.getInt();
-            String b = io.getInt();
+            int a = io.getInt();
+            int b = io.getInt();
             if (operator.equals("=")) {
                 //merge a and b
                 union(a, b);
@@ -37,13 +37,13 @@ public class UnionFind {
     /**
      * Merges groups which elements A and B belong to
      */
-    public static void union(int elementA, int elementB) {
+    public void union(int elementA, int elementB) {
         int a = findGroup(elementA);
         int b = findGroup(elementB);
 
         //If a is smaller than b
         //Merge a's tree to b's tree
-        if (treeSizes[a] < treeSizes[b]) {
+        if (treeSizes[roots[a]] < treeSizes[roots[b]]) {
             merge(a, b);
         } else {
             merge(b, a);
@@ -52,30 +52,38 @@ public class UnionFind {
 
     /*
     * Merge b to a
-    * Where a is smaler than b
+    * Where a is smaller than b
     * Thus b is now the root for a
     */
-    public static void merge(int a, int b) {
-        roots[a] = b;
-        treeSizes[b] += treeSizes[a];
+    public void merge(int a, int b) {
+    	treeSizes[roots[b]] += treeSizes[roots[a]];
+        roots[a] = roots[b];
     }
 
     /*
-     * Find the element's group
+     * Find the element's group, and update roots at the same time
      */
-    public static int findGroup(int element) {
+    public int findGroup(int element) {
         int root = element;
         while (root != roots[root]) {
-            // traverse upward
-            root = roots[root];
+            // traverse upward, and update roots as you go
+        	roots[root] = roots[roots[root]];
+        	root = roots[root];
         }
+        roots[element] = root;
         return root;
     }
 
     /*
     * Check if the two element belong to the same group
     */
-    public static boolean same(int elementA, int elementB) {
+    public boolean same(int elementA, int elementB) {
         return findGroup(elementA) == findGroup(elementB);
+    }
+    
+
+    public static void main(String[] args) {
+        UnionFind solver = new UnionFind();
+        solver.solve();
     }
 }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LongestSolver {
@@ -10,52 +9,70 @@ public class LongestSolver {
 		kattio = new Kattio(System.in);
 	}
 
-	public void solve(int[] seq) {
-		List<Integer> longest = new ArrayList<>();
-		List<Integer> alt = new ArrayList<>();
-		int[] last = new int[seq.length+1];
-		last[0] = Integer.MIN_VALUE;
-		for (int i = 1; i < last.length; i++) {
-			last[i] = Integer.MAX_VALUE;
-		}
+	public void solve() {
+		InputParser parser = new InputParser();
+		int[] seq;
+		while (parser.hasNext()) {
+			seq = parser.getSequence();
+			List<Integer> longest = new ArrayList<>();
+			List<Integer> alt = new ArrayList<>();
+			int[] last = new int[seq.length+1];
+			// Initiate last
+			last[0] = Integer.MIN_VALUE;
+			for (int i = 1; i < last.length; i++) {
+				last[i] = Integer.MAX_VALUE;
+			}
 
-		for (int i = 1; i < last.length; i++) {
-			int l = find(last, longest.size(), seq[i-1]);
-			last[l] = Math.min(last[l], seq[i-1]);
-			if (l > longest.size()) {
-				if (alt.size() == longest.size() && alt.size() != 0 && alt.get(alt.size()-1) < longest.get(longest.size()-1)) {
-					Collections.copy(longest, alt);
+			for (int i = 0; i < seq.length; i++) {
+				// Find the lowest index l such that seq[i] is smaller than the next
+				int l = find(last, longest.size(), seq[i]);
+				// update last
+				last[l] = Math.min(last[l], seq[i]);
+				// If l > longest, longest must be updated
+				if (l > longest.size()) {
+					if (alt.size() == longest.size() && alt.size() != 0 && alt.get(alt.size()-1) < longest.get(longest.size()-1)) {
+						// If alt has the same length as longest, it means that longest should get the value of alt.
+						longest = alt;
+						alt = new ArrayList<>();
+					}
+					longest.add(seq[i]);
+				} else {
+					// Make sure alt is up-to speed with longest
+					while (alt.size() < l) {
+						alt.add(longest.get(alt.size()));
+					}
+					alt.add(l-1, seq[i]);
+					// Remove every element after the newly added
+					while (alt.size() > l)
+						alt.remove(alt.size()-1);
 				}
-				longest.add(seq[i-1]);
-			} else {
-				while (alt.size() < l) {
-					alt.add(longest.get(alt.size()));
+			}
+			StringBuilder sb = new StringBuilder();
+			sb.append(longest.size()).append("\n");
+			int[] res = new int[longest.size()];
+			int index = res.length-1;
+			for (int i = seq.length-1; i >= 0; i--) {
+				if (seq[i] == longest.get(longest.size()-1)) {
+					longest.remove(longest.size()-1);
+					res[index] = i;
+					index--;
+					if (index < 0)
+						break;
 				}
-				alt.add(l-1, seq[i-1]);
-				alt = alt.subList(0, l);
 			}
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append(longest.size()).append("\n");
-		/*for (int i : longest) {
-			sb.append(i).append(" ");
-		}*/
-		int[] res = new int[longest.size()];
-		int index = res.length-1;
-		for (int i = seq.length-1; i >= 0; i--) {
-			if (seq[i] == longest.get(longest.size()-1)) {
-				longest.remove(longest.size()-1);
-				res[index] = i;
-				index--;
-				if (index < 0)
-					break;
+			for (int i : res) {
+				sb.append(i).append(" ");
 			}
+			sb.append("\n");
+			kattio.print(sb.toString());
 		}
-		for (int i : res) {
-			sb.append(i).append(" ");
-		}
-		sb.append("\n");
-		kattio.print(sb.toString());
+	}
+	
+	/**
+	 * Prints the indexes of the longest inc subseq
+	 */
+	private void print(List<Integer> longest, int[] seq) {
+		
 	}
 
 	private int find(int[] last, int start, int insert) {
@@ -83,11 +100,8 @@ public class LongestSolver {
 	}
 
 	public static void main(String[] args) {
-		InputParser parser = new InputParser();
 		LongestSolver s = new LongestSolver();
-		while (parser.hasNext()) {
-			s.solve(parser.getSequence());
-		}
+		s.solve();
 		s.close();
 	}
 
