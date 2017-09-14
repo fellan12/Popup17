@@ -8,28 +8,21 @@ public class UnionFind {
 
 	private Kattio io;
     private UnionSet unionSet;
+    private Command[] commands;
     
     public UnionFind() {
+    	InputParser parser = new InputParser();
+    	unionSet = parser.getUnionSet();
+    	commands = parser.getCommands();
     	io = new Kattio(System.in);
-    	unionSet = new UnionSet(io.getInt());
-	}
-	
-	private Command getNextCommand() {
-		if (!io.hasMoreTokens())
-			return null;
-		String operator = io.getWord();
-        int a = io.getInt();
-        int b = io.getInt();
-        return new Command(operator, a, b);
-	}
+    }
     
     public void solve() {
-    	int commandAmount = io.getInt();
-    	for (int i = 0; i < commandAmount; i++) {
-    		Command c = getNextCommand();
-    		int a = c.getA();
-    		int b = c.getB();
-			if (c.getType() == CommandType.UNION) {
+    	for (Command command : commands) {
+    		CommandType type = command.getType();
+    		int a = command.getA();
+    		int b = command.getB();
+			if (type == CommandType.UNION) {
 				unionSet.union(a, b);
 			} else {
 				printBool(unionSet.same(a, b));
