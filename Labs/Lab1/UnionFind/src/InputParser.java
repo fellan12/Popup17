@@ -1,4 +1,6 @@
-
+/**
+ * Parses the input and returns a UnionSet and an array of Commands
+ */
 public class InputParser {
 	private UnionSet unionSet;
 	private Command[] commands;

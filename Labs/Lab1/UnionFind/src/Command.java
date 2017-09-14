@@ -1,4 +1,7 @@
-
+/**
+ * Represents a command in the Union Find problem.
+ * Each command has a type and two integers.
+ */
 public class Command {
 	private CommandType type;
 	private int a;

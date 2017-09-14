@@ -1,4 +1,10 @@
-
+/**
+ * Representation of all of the sets.
+ *
+ * All the elements are trees with a root that first points to itself
+ * When merged the larger one gets the smallest one's elements inc. itself
+ * and the smallest one's new root is the larger one
+*/
 public class UnionSet {
 	private int[] roots;
     private int[] treeSizes;
@@ -27,7 +33,7 @@ public class UnionSet {
         }
     }
 
-    /*
+    /**
     * Merge b to a
     * Where a is smaller than b
     * Thus b is now the root for a
@@ -37,7 +43,7 @@ public class UnionSet {
         roots[a] = roots[b];
     }
 
-    /*
+    /**
      * Find the element's group, and update roots at the same time
      */
     private int findGroup(int element) {
@@ -51,7 +57,7 @@ public class UnionSet {
         return root;
     }
 
-    /*
+    /**
     * Check if the two element belong to the same group
     */
     public boolean same(int elementA, int elementB) {

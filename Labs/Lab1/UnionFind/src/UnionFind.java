@@ -1,9 +1,8 @@
-/*
-* All the elements are trees with a root that first points to itself
-* When merged the larger one gets the smallest one's elements inc. itself
-* and the smallest one's new root is the larger one
-*/
-
+/**
+ * The main class for solving the union find problem.
+ * 
+ * Has a unionSet and a list of commands.
+ */
 public class UnionFind {
 
 	private Kattio io;
@@ -17,6 +16,9 @@ public class UnionFind {
     	io = new Kattio(System.in);
     }
     
+    /**
+     * Does all of the work: Reading commands, merging and printing.
+     */
     public void solve() {
     	for (Command command : commands) {
     		CommandType type = command.getType();
@@ -30,6 +32,7 @@ public class UnionFind {
 		}
     	io.close();
     }
+    
     
     private void printBool(boolean b) {
     	String output = "no";
