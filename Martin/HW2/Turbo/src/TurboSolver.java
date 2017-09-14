@@ -1,25 +1,26 @@
-import java.util.ArrayList;
-
 public class TurboSolver {
 
 	public static void main(String[] args) {
-		Kattio kattio = new Kattio(System.in);
-		int length = kattio.getInt();
-		ArrayList<Integer> list = new ArrayList<>(length);
+		Kattio io = new Kattio(System.in);
+		int length = io.getInt();
+		int[] indexMap = new int[length+1];
+		FenwickTree fenwick = new FenwickTree(length);
 		for (int i = 0; i < length; i++) {
-			list.add(kattio.getInt());
+			fenwick.add(i, 1);
+			indexMap[io.getInt()] = i;
 		}
 		for (int i = 0; i < length/2; i++) {
-			int index = list.indexOf(i+1);
-			kattio.println(index);
-			list.remove(index);
-			index = list.indexOf(length-i);
-			kattio.println(list.size()-(index+1));
-			list.remove(index);
+			int index = i+1;
+			fenwick.add(indexMap[index], -1);
+			int sum = fenwick.sumLeft(indexMap[index]);
+			io.println(sum);
+			fenwick.add(indexMap[length-i], -1);
+			sum = fenwick.sumRight(indexMap[length-i]);
+			io.println(sum);
 		}
-		if (list.size() == 1)
-			kattio.println(0);
-		kattio.close();
+		if (length % 2 != 0)
+			io.println(0);
+		io.close();
 	}
 
 }
