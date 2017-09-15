@@ -31,19 +31,39 @@ public class LongestSolver {
 					parent[i] = last[l-1];
 				}
 			}
-			StringBuilder sb = new StringBuilder();
-			//sb.append(longest);
-			int print = last[longest];
-			while (print != Integer.MIN_VALUE) {
-				sb.insert(0, print+" ");
-				print = parent[print];
-			}
-			io.println(longest);
-			io.println(sb.toString());
+			printAnswer(parent, last[longest], longest);
 		}
 		io.flush();
 	}
+	
+	/**
+	 * Prints the answer from the arguments.
+	 * parent = array that maps all indexes to it's "parent", ie the previous index
+	 *          in the longest inc subseq
+	 * start  = The last element in the last array. The only one we can know for
+	 *          sure is correct
+	 * size   = The size of the answer
+	 */
+	private void printAnswer(int[] parent, int start, int size) {
+		int[] arr = new int[size];
+		int i = 0;
+		while (start != Integer.MIN_VALUE) {
+			arr[i] = start;
+			start = parent[start];
+			i++;
+		}
+		io.println(size);
+		while (i > 0) {
+			i--;
+			io.print(arr[i]);
+			io.print(" ");
+		}
+		io.println();
+	}
 
+	/**
+	 * Binary searches last in order to find the correct l
+	 */
 	private int find(int[] last, int start, int i) {
 		int low = 0;
 		int high = start;
