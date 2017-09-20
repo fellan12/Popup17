@@ -1,5 +1,8 @@
-import java.util.*;
+/**
+* Author: Felix De Silva
+*/
 
+import java.util.*;
 public class RationalArithmetic {
   static Kattio io = new Kattio(System.in, System.out);
 
@@ -10,7 +13,6 @@ public class RationalArithmetic {
       String operation = io.getWord();
       Rational second = new Rational(io.getLong(), io.getLong());
 
-      //Perform the desired operation
       switch(operation){
         case "+": io.println(first.add(second).toString());
                   break;

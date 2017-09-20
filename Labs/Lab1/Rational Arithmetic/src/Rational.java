@@ -1,4 +1,5 @@
-/*
+/**
+* Author: Felix De Silva
 * Represent a rational number and has internal functions for
 * basic arithmetic operations
 */
@@ -103,8 +104,6 @@ public class Rational implements Comparable<Rational>{
     this.setDenominator(y1);
     other.setNumerator(x2);
     other.setDenominator(y2);
-    // System.out.println(toString());
-    // System.out.println(other.toString());
   }
 
   /*

@@ -2,7 +2,7 @@ import java.util.*;
 
 /*
 * A binary index tree that easily can sum up ranges
-* of elements from 0 to n-1
+* of elements from 1 to n
 */
 
 public class FenwickTree {
@@ -22,6 +22,13 @@ public class FenwickTree {
       }
     }
     io.close();
+  }
+
+  /*
+  *   Constructor for the FenwickTree
+  */
+  public FenwickTree(int num){
+    binaryIndexTree = new long[num+1];
   }
 
   /*
