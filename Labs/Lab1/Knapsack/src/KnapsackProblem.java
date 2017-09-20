@@ -1,4 +1,9 @@
-
+/**
+ * Author: Felix De Silva & Martin Engelin
+ * 
+ * Representation of a knapsack problem. 
+ * Contains an array of Items and a double capacity.
+ */
 public class KnapsackProblem {
 	
 	private double capacity;

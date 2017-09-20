@@ -1,5 +1,9 @@
-
-public class Item implements Comparable<Item>{
+/**
+ * Authors: Felix De Silva & Martin Engelin
+ *
+ * Representation of an item in the knapsack problem.
+ */
+public class Item {
 
 	private int value;
 	private int weight;
@@ -27,9 +31,4 @@ public class Item implements Comparable<Item>{
 	public String toString(){
 		return index + " - (Value: " + value + ", Weight: " + weight + ")";
 	}
-
-	@Override
-  public int compareTo(Item other){
-		return Integer.compare(this.getWeight(), other.getWeight());
-  }
 }

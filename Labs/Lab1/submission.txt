@@ -1,0 +1,26 @@
+Submission Lab 1.
+Authors: Martin Engelin, Felix De Silva
+
+Problems:
+
+Interval Cover 2036839
+Felix solved the problem.
+Both reviewed the code and made it cleaner and more efficient.
+
+Knapsack 2036885
+Felix started with the algorithm, we completed the code together.
+
+Longest Increasing Subsequence 2036949
+We both started working on it, but Martin completed the solution.
+
+Union Find 2037081
+Felix started with an algorithm that got time limit exceeded.
+Martin optimized the algorithm and restructured the code.
+
+Fenwick Tree 2037184
+We both did our own implementation, but we used Felix's 
+for the lab.
+
+Rational Arithmetic 2037257
+Felix did everything
+

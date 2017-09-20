@@ -1,14 +1,16 @@
 /**
+ * Authors: Martin Engelin & Felix De Silva
+ * 
  * Parses the input and returns a UnionSet and an array of Commands
  */
 public class InputParser {
-	private UnionSet unionSet;
+	private UnionFind unionSet;
 	private Command[] commands;
 	private Kattio io;
 	
 	public InputParser() {
 		io = new Kattio(System.in);
-		unionSet = new UnionSet(io.getInt());
+		unionSet = new UnionFind(io.getInt());
 		initCommands();
 	}
 	
@@ -26,7 +28,7 @@ public class InputParser {
 		return commands;
 	}
 	
-	public UnionSet getUnionSet() {
+	public UnionFind getUnionSet() {
 		return unionSet;
 	}
 }

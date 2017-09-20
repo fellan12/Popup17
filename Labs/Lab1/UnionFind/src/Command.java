@@ -1,4 +1,6 @@
 /**
+ * Authors: Martin Engelin & Felix De Silva
+ * 
  * Represents a command in the Union Find problem.
  * Each command has a type and two integers.
  */

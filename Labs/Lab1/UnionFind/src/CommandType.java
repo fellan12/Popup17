@@ -1,4 +1,6 @@
-
+/**
+ * Authors: Martin Engelin & Felix De Silva
+ */
 public enum CommandType {
 	UNION, PRINT;
 	

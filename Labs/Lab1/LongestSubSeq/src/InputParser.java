@@ -1,20 +1,23 @@
-
+/**
+ * Authors: Martin Engelin & Felix De Silva 
+ */
 public class InputParser {
-	private Kattio felix;
 	
-	public InputParser() {
-		felix = new Kattio(System.in);
+	private Kattio io;
+	
+	public InputParser(Kattio io) {
+		this.io = io;
 	}
 	
 	public int[] getSequence() {
-		int[] ret = new int[felix.getInt()];
+		int[] ret = new int[io.getInt()];
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = felix.getInt();
+			ret[i] = io.getInt();
 		}
 		return ret;
 	}
 	
 	public boolean hasNext() {
-		return felix.hasMoreTokens();
+		return io.hasMoreTokens();
 	}
 }
