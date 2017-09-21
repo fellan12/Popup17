@@ -1,3 +1,6 @@
+/**
+* Author: Felix De Silva
+**/
 
 import java.util.*;
 
@@ -15,9 +18,10 @@ public class Dijkstra {
       Node node = queue.poll();
 
       for (Edge edge: node.getAdjecentNodes()) {
-        Node end = edge.getEndNode();
         int distance = node.getDistance() + edge.getWeight();
 
+        //new distance is smaller that end's current distance
+        Node end = edge.getEndNode();
         if (distance < end.getDistance()) {
           queue.remove(end);          //remove endNode
           end.setDistance(distance);
