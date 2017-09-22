@@ -19,28 +19,6 @@ public class Cantor {
 		in.close();
 	}
 	
-	public static boolean isCantor1(double d) {
-		double low = 0;
-		double lmid = 1/3;
-		double hmid = 2/3;
-		double high = 1;
-		while (true) {
-			if (d == low || d == lmid || d == hmid || d == high) {
-				return true;
-			} else if (lmid < d && d < hmid) {
-				return false;
-			} else if (low < d && d < lmid) {
-				lmid = low+(lmid-low)/3;
-				hmid = low+2*((lmid-low)/3);
-				high = lmid;
-			} else {
-				low = hmid;
-				lmid = hmid+(high-hmid)/3;
-				hmid = hmid+2*((high-hmid)/3);
-			}
-		}
-	}
-	
 	public static boolean isCantor(double d) {
 		HashSet<Double> visited = new HashSet<>();
 		DecimalFormat df = new DecimalFormat("0.000000");
