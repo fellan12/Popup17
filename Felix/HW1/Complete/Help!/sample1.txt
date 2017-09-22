@@ -1,0 +1,13 @@
+6
+how now brown <animal>
+<foo> now <color> cow
+who are you
+<a> <b> <a>
+<a> b
+c <a>
+<foo> hej
+<foo> <foo>
+<foo>
+<foo>
+<foo>
+<bar>
