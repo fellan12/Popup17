@@ -1,14 +1,14 @@
-package djikstra;
+package dijkstra;
 /**
 * Author: Felix De Silva
 **/
 
-public class Edge {
+public class NonNegEdge {
 
     private Node endNode;
     private int weight;
 
-    public Edge(Node endNode, int weight) {
+    public NonNegEdge(Node endNode, int weight) {
         this.endNode = endNode;
         this.weight = weight;
     }

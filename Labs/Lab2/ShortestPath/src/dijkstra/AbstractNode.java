@@ -1,4 +1,4 @@
-package djikstra;
+package dijkstra;
 /**
 * Author: Felix De Silva
 **/
@@ -6,20 +6,20 @@ package djikstra;
 
 import java.util.*;
 
-public class Node {
+public abstract class AbstractNode<T> {
     private  int index;
-    private List<Edge> adjecentNodes;
+    private List<T> adjecentNodes;
     private int distance;
-    private Node previous;
+    private AbstractNode<T> previous;
 
-    public Node(int index) {
+    public AbstractNode(int index) {
         this.index = index;
-        this.adjecentNodes = new ArrayList<Edge>();
+        this.adjecentNodes = new ArrayList<T>();
         this.distance = Integer.MAX_VALUE;
         this.previous = null;
     }
 
-    public List<Edge> getAdjecentNodes(){
+    public List<T> getAdjecentNodes(){
       return adjecentNodes;
     }
 
@@ -35,15 +35,15 @@ public class Node {
       distance = newDistance;
     }
 
-    public Node getPreviousNode(){
+    public AbstractNode<T> getPreviousNode(){
       return previous;
     }
 
-    public void setPrevious(Node newPrevious){
+    public void setPrevious(AbstractNode<T> newPrevious){
       previous = newPrevious;
     }
 
-    public void addEdge(Edge e) {
-    	this.adjecentNodes.add(e);
+    public void addEdge(T t) {
+    	this.adjecentNodes.add(t);
     }
 }
