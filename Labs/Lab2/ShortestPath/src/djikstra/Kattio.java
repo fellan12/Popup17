@@ -1,4 +1,4 @@
-package nonneg;
+package djikstra;
 
 
 import java.util.StringTokenizer;

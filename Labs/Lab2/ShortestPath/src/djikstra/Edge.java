@@ -1,4 +1,4 @@
-package nonneg;
+package djikstra;
 /**
 * Author: Felix De Silva
 **/
