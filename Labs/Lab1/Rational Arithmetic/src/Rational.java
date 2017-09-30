@@ -62,9 +62,9 @@ public class Rational implements Comparable<Rational>{
 	public Rational mul(Rational other){
 		long x = this.getNumerator() * other.getNumerator();
 		long y = this.getDenominator() * other.getDenominator();
-		Rational added = new Rational(x,y);
-		reduce(added);
-		return added;
+		Rational multiplied = new Rational(x,y);
+		reduce(multiplied);
+		return multiplied;
 	}
 
 	/**
@@ -74,16 +74,16 @@ public class Rational implements Comparable<Rational>{
 	public Rational div(Rational other){
 		long x = this.getNumerator() * other.getDenominator();
 		long y = this.getDenominator() * other.getNumerator();
-		Rational added = new Rational(x,y);
-		reduce(added);
-		return added;
+		Rational divided = new Rational(x,y);
+		reduce(divided);
+		return divided;
 	}
 
 	/**
 	 * Recalculate this number and the other number
 	 * such that they have the same denominator.
-	 * 
-	 * Return an array consisting of the two rational numbers 
+	 *
+	 * Return an array consisting of the two rational numbers
 	 * in the same base.
 	 * 0 -> this
 	 * 1 -> other
