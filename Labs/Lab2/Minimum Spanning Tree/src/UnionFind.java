@@ -95,7 +95,7 @@ public class UnionFind {
 	/**
 	* Number of independent sets in the UnionFind-structure
 	*/
-	public int numOfSets(){
-		return numOfSets;
+	public int[] getSetsSizes(){
+		return treeSizes;
 	}
 }

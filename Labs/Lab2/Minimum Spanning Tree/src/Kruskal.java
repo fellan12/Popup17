@@ -17,7 +17,15 @@ public class Kruskal {
     }
 
     //If number of sets != 1 -> no MST
-    if(nodesSet.numOfSets() == 1){
+    boolean corrent = false;
+    for (int s : nodesSet.getSetsSizes()) {
+      if(s == g.getNodeCount()){
+        corrent = true;
+        break;
+      }
+    }
+
+    if(corrent){
       Collections.sort(tree, new LexicographicalComperator());
     } else {
       tree = null;

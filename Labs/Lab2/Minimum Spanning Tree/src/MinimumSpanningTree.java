@@ -17,7 +17,13 @@ public class MinimumSpanningTree {
       //Create all edges
       List<Edge> edgeList = new ArrayList<Edge>();
   		for (int i = 0; i < edges; i++) {
-  			edgeList.add(new Edge(io.getInt(), io.getInt(), io.getInt()));
+        int u = io.getInt();
+        int v = io.getInt();
+        if(u <= v){
+          edgeList.add(new Edge(u, v, io.getInt()));
+        } else {
+          edgeList.add(new Edge(v, u, io.getInt()));
+        }
   		}
 
       //Sort such that smallest edges first
