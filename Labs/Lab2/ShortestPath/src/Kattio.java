@@ -1,4 +1,3 @@
-package dijkstra;
 
 
 import java.util.StringTokenizer;

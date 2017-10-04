@@ -1,10 +1,9 @@
-package dijkstra;
 /**
-* Author: Felix De Silva
+* Author: Felix De Silva & Martin Engelin
 **/
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractNode<T> {
     private  int index;
