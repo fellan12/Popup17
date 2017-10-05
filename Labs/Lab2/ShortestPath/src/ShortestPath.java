@@ -1,6 +1,5 @@
-package dijkstra;
 /**
- * Author: Felix De Silva
+ * Author: Felix De Silva & Martin Engelin
  */
 
 public class ShortestPath {
@@ -24,7 +23,7 @@ public class ShortestPath {
 		io.close();
 	}
 	
-	private static void dijkstraNonNeg(int nodes, int edges, int queries, int start) {
+	private static void dijkstra(int nodes, int edges, int queries, int start) {
 		Node[] graph = new Node[nodes];
 		for (int i = 0; i < nodes; i++) {
 			graph[i] = new Node(i);
@@ -35,7 +34,7 @@ public class ShortestPath {
 			Node current = graph[io.getInt()];
 			Node neighbor = graph[io.getInt()];
 			int weight = io.getInt();
-			current.addEdge(new NonNegEdge(neighbor, weight));
+			current.addEdge(new Edge(neighbor, weight));
 		}
 
 		//Run diijkstra on starting node

@@ -1,6 +1,5 @@
-package dijkstra;
 /**
- * Author: Felix De Silva
+ * Author: Felix De Silva & Martin Engelin
  **/
 
 import java.util.*;
@@ -16,7 +15,7 @@ public class Dijkstra {
 
 		while (!queue.isEmpty()) {
 			Node node = queue.poll();
-			for (NonNegEdge edge: node.getAdjecentNodes()) {
+			for (Edge edge: node.getAdjecentNodes()) {
 				int distance = node.getDistance() + edge.getWeight();
 
 				//new distance is smaller that end's current distance

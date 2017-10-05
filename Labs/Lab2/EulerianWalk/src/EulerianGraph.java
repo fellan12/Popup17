@@ -4,21 +4,21 @@ import java.util.HashMap;
 
 /**
  * Authors Martin Engelin & Felix De Silva
+ * 
+ * Representation of a graph for the Eulerian path problem.
  */
-public class Graph {
+public class EulerianGraph {
 	
 	private int vertices;
 	private int start;
 	private int end;
-	private Edge[] edges;
-	private int edgesIndex;
+	private int edges;
 	private HashMap<Integer, Deque<Integer>> outgoingEdges;
 	private HashMap<Integer, Integer> incomingEdgesAmount;
 	
-	public Graph(int vertices, int edges) {
+	public EulerianGraph(int vertices, int edges) {
 		this.vertices = vertices;
-		this.edges = new Edge[edges];
-		this.edgesIndex = 0;
+		this.edges = edges;
 		this.outgoingEdges = new HashMap<>();
 		this.incomingEdgesAmount = new HashMap<>();
 		this.start = -1;
@@ -29,7 +29,6 @@ public class Graph {
 	 * Adds an edge to the graph
 	 */
 	public void addEdge(int from, int to) {
-		edges[edgesIndex] = new Edge(from, to);
 		if (!outgoingEdges.containsKey(from)) {
 			outgoingEdges.put(from, new ArrayDeque<>());
 		}
@@ -41,17 +40,15 @@ public class Graph {
 	}
 	
 	/**
-	 * Checks if the graph could be Semi Eularian.
+	 * Checks if the graph could be Semi Eulerian.
 	 */
 	public boolean feasible() {
 		for (int i = 0; i < vertices; i++) {
-			if (degree(i) % 2 == 0 && outgoingEdges(i) == incomingEdges(i)) {
-				// Normal, do nothing
-			} else if (outgoingEdges(i) == incomingEdges(i)+1 && start == -1) {
+			if (outgoingEdges(i) == incomingEdges(i)+1 && start == -1) {
 				start = i;
 			} else if (outgoingEdges(i)+1 == incomingEdges(i) && end == -1) {
 				end = i;
-			} else {
+			} else if (outgoingEdges(i) != incomingEdges(i)) {
 				return false;
 			}
 		}
@@ -74,10 +71,10 @@ public class Graph {
 		return end;
 	}
 	
-	private int degree(int node) {
-		return outgoingEdges(node)+incomingEdges(node);
-	}
-	
+	/**
+	 * Returns the amount of outgoing edges from the
+	 * argument node.
+	 */
 	private int outgoingEdges(int node) {
 		if (!outgoingEdges.containsKey(node)) {
 			return 0;
@@ -85,6 +82,10 @@ public class Graph {
 		return outgoingEdges.get(node).size();
 	}
 	
+	/**
+	 * Returns the amount of incoming edges from the
+	 * argument node.
+	 */
 	private int incomingEdges(int node) {
 		if (!incomingEdgesAmount.containsKey(node))
 			return 0;
@@ -99,39 +100,27 @@ public class Graph {
 	}
 	
 	/**
-	 * Returns an unvisited edge of the specified node.
+	 * Returns an unvisited edge of the specified node, and removes it from the graph.
 	 * returns -1 if no such node exists.
 	 */
-	public int getUnvisitedEdge(int node) {
+	public int removeUnvisitedEdge(int node) {
 		Deque<Integer> out = outgoingEdges.get(node);
 		if (out == null || out.isEmpty())
 			return -1;
-		if (out.getFirst() == getEnd() && out.size() > 1) {
-			out.removeFirst();
-			out.addLast(getEnd());
-		}
-		return outgoingEdges.get(node).removeFirst();
+		return out.removeFirst();
 	}
 	
+	/**
+	 * Returns the amount of vertices as specified during its initialization.
+	 */
 	public int size() {
 		return vertices;
 	}
 	
-	class Edge {
-		private int from, to;
-		
-		public Edge(int from, int to) {
-			this.from = from;
-			this.to = to;
-		}
-		
-		public int to() {
-			return to;
-		}
-		
-		public int from() {
-			return from;
-		}
+	/**
+	 * Returns the amount of edges as specified during its initialization.
+	 */
+	public int edges() {
+		return edges;
 	}
-
 }

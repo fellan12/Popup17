@@ -1,5 +1,3 @@
-package dijkstra;
-
 public class TimeEdge {
 	
 	private int firstTime;
