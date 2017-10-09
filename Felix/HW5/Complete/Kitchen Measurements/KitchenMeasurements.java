@@ -29,16 +29,17 @@ public class KitchenMeasurements {
         while (!nextToVisit.isEmpty()) {
             Node currentNode = nextToVisit.poll();
             System.out.println("CURRENT: " + currentNode.getState() + " -> TOTAL COST: " + currentNode.getCost());
-            //Have we been here?
-            if (visitedStates.contains(currentNode.getState())){
-              System.out.println("SKIPPED: " + currentNode.getState() + " -> TOTAL COST: " + currentNode.getCost());
-              continue; // Skip
-            }
 
             //Is this node a goal node?
             if (currentNode.getState().isGoal(goal)) {
                 System.out.println("GOAL: " + currentNode.getState() + " -> TOTAL COST: " + currentNode.getCost());
                 return currentNode.getCost();
+            }
+
+            //Have we been here?
+            if (visitedStates.contains(currentNode.getState())){
+              System.out.println("SKIPPED: " + currentNode.getState() + " -> TOTAL COST: " + currentNode.getCost());
+              continue; // Skip
             }
 
             //Add to visitedStates
