@@ -1,5 +1,7 @@
 import java.util.*;
-
+/**
+ * Authors: Felix De Silva & Martin Engelin
+ */
 public class Graph {
   private int nodeCount;
   private int edgeCount;

@@ -1,5 +1,8 @@
 import java.util.*;
-
+/**
+ * Authors: Felix De Silva & Martin Engelin
+ * Class containing the main method for solving the problem in Kattis.
+ */
 public class AllPairsShortestPath {
 
   public static void main(String[] args) {
@@ -46,15 +49,4 @@ public class AllPairsShortestPath {
     }
     io.close();
   }
-
-  private static void printMatrix(int[][] matrix){
-
-      for(int i = 0; i < matrix.length; i++){
-        for(int j = 0; j < matrix[0].length; j++){
-          System.out.print(matrix[i][j] + " ");
-        }
-        System.out.println();
-      }
-  }
-
 }

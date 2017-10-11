@@ -3,7 +3,7 @@
  */
 
 public class ShortestPath {
-	
+
 	private static Kattio io = new Kattio(System.in, System.out);
 
 	public static void main(String[] args) {
@@ -17,12 +17,15 @@ public class ShortestPath {
 			if(nodes == 0 && edges == 0 && queries == 0 && start == 0){
 				break;
 			}
-			//dijkstraNonNeg(n, m, q, s);
+			//dijkstra(nodes, edges, queries, start);
 			dijkstraTime(nodes, edges, queries, start);
 		}
 		io.close();
 	}
-	
+
+  /**
+	 * Kattis implementatino for solving Shortest Path Non Neg
+	 */
 	private static void dijkstra(int nodes, int edges, int queries, int start) {
 		Node[] graph = new Node[nodes];
 		for (int i = 0; i < nodes; i++) {
@@ -54,7 +57,10 @@ public class ShortestPath {
 		}
 		io.println();
 	}
-	
+
+	/**
+	 * Kattis implementatino for solving Shortest Path Time
+	 */
 	private static void dijkstraTime(int nodes, int edges, int queries, int start) {
 		TimeNode[] graph = new TimeNode[nodes];
 		for (int i = 0; i < nodes; i++) {

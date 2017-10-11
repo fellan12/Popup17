@@ -1,8 +1,17 @@
+/**
+ * Authors: Felix De Silva & Martin Engelin
+ * Uses the Floyd Warshall algorithm to solve the All Pairs Shortest Path problem.
+ */
 public class FloydWarshall {
-
-
+  /**
+   * Given a graph returns a matrix containing the length of the shortest path
+   * in between every vertix in the graph.
+   * Two Vertices that cannot reach each other is represented in the graph with
+   * value Integer.MAX_VALUE.
+   * Any node reachable from a negative cycle is represented in the graph with
+   * value Integer.MIN_VALUE.
+   */
   public static int[][] floydWarshall(Graph graph) {
-
     //Initialize
     for(int i = 0; i < graph.getNodeCount(); i++) {
       graph.setDist(i,i,0);
@@ -43,7 +52,4 @@ public class FloydWarshall {
     }
     return graph.getDistMatrix();
   }
-
-
-
 }

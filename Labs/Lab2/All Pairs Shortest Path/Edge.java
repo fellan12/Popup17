@@ -1,7 +1,6 @@
 /**
-* Author: Felix De Silva
-**/
-
+ * Authors: Felix De Silva & Martin Engelin
+ */
 public class Edge {
   private int startNode;
   private int endNode;

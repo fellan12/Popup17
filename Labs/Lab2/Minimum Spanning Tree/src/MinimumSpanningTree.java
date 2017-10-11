@@ -1,5 +1,10 @@
 import java.util.*;
-
+/**
+ * Authors: Felix De Silva & Martin Engelin
+ *
+ * Contains a main method for solving the Minimum Spanning Tree problem
+ * in Kattis.
+ */
 public class MinimumSpanningTree {
   public static void main(String[] args) {
     Kattio io = new Kattio(System.in, System.out);

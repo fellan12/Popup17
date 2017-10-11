@@ -1,5 +1,8 @@
+/**
+ * Authors: Martin Engelin & Felix De Silva
+ */
 public class TimeEdge {
-	
+
 	private int firstTime;
 	private int period;
 	private TimeNode endNode;
@@ -23,11 +26,15 @@ public class TimeEdge {
 	public int getFirstTime() {
 		return firstTime;
 	}
-	
+
 	public int getPeriod() {
 		return period;
 	}
 
+	/**
+	 * Returns the amount of time until the edge is walkable.
+	 * If it isn't walkable from now, throws RuntimeException.
+	 */
 	public int getWaitTime(int currentTime) {
 		if (!isWalkable(currentTime))
 			throw new RuntimeException("Calling getWaitTime for non walkable edge.");
@@ -39,7 +46,7 @@ public class TimeEdge {
 			ret = period - ret;
 		return ret;
 	}
-	
+
 	public boolean isWalkable(int currentTime) {
 		return !(period == 0 && currentTime > firstTime);
 	}
