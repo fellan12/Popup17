@@ -8,6 +8,7 @@ public class Kruskal {
     List<Edge> edgeList = g.getEdgeList();
     List<Edge> tree = new ArrayList<Edge>();
 
+    Collections.sort(edgeList, new WeightComperator());
     //Kruskal's Algorithm
     for (Edge e : edgeList) {
       if(!nodesSet.same(e.getStartNode(), e.getEndNode())){
@@ -33,6 +34,13 @@ public class Kruskal {
 
     return tree;
   }
+
+  private static class WeightComperator implements Comparator<Edge> {
+		@Override
+		public int compare(Edge o1, Edge o2) {
+			return Integer.compare(o1.getWeight(), o2.getWeight());
+		}
+	}
 
   private static class LexicographicalComperator implements Comparator<Edge> {
     @Override
