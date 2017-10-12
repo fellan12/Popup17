@@ -1,5 +1,7 @@
 import java.util.*;
-
+/**
+* Authors: Felix De Silva && Martin Engelin
+*/
 public class KMP {
 
   public static List<Integer> kmp(String pattern, String text){

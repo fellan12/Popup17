@@ -1,6 +1,10 @@
 import java.util.*;
 import java.io.*;
 
+/**
+* Authors: Felix De Silva && Martin Engelin
+*/
+
 public class SubstringSearch {
 
   public static void main(String[] args) throws IOException{
