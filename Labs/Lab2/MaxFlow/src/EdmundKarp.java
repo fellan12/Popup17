@@ -1,61 +1,95 @@
 import java.util.ArrayDeque;
+import java.util.Arrays;
 
 public class EdmundKarp {
+  public static Result maxFlow(int graph[][], int s, int t) {
+    int numOfNodes = graph.length;
+    int residual[][] = new int[numOfNodes][numOfNodes];
 
-	public static int maxFlow(Node[] graph, int source, int tap) {
-		Edge[] pred = new Edge[graph.length];
-		int flow = 0;
-		while(true) {
-			ArrayDeque<Integer> queue = new ArrayDeque<>();
-			queue.push(source);
-			while (!queue.isEmpty()) {
-				Node cur = graph[queue.poll()];
-				for (Edge e : cur.getEdges()) {
-					if (pred[e.toIndex()] == null && e.toIndex() != source && e.getCapacity() > e.getFlow()) {
-						pred[e.toIndex()] = e;
-						queue.push(e.toIndex());
-					}
-				}
-			}
-			if (pred[tap] != null) {
-				int diffFlow = Integer.MAX_VALUE;
-				for (Edge e = pred[tap]; e != null; e = pred[e.fromIndex()]) {
-					diffFlow = Math.min(diffFlow, e.getCapacity()-e.getFlow());
-				}
-				for (Edge e = pred[tap]; e != null; e = pred[e.fromIndex()]) {
-					e.addFlow(diffFlow);
-					e.getResidual().addFlow(-diffFlow);
-				}
-				flow += diffFlow;
-			} else {
-				break;
-			}
-			pred = new Edge[graph.length];
-		}
-		return flow;
-	}
-	
-	public static void main(String[] args) {
-		Kattio io = new Kattio(System.in);
-		int nodes = io.getInt();
-		int edges = io.getInt();
-		int source = io.getInt();
-		int tap = io.getInt();
-		Node[] graph = new Node[nodes];
-		for (int i = 0; i < graph.length; i++) {
-			graph[i] = new Node(i);
-		}
-		for (int i = 0; i < edges; i++) {
-			int from = io.getInt();
-			int to = io.getInt();
-			int cap = io.getInt();
-			Edge e = new Edge(graph[from], graph[to], cap);
-			Edge res = e.generatedResidual();
-			graph[from].addEdge(e);
-			graph[to].addEdge(res);
-		}
-		int maxFlow = maxFlow(graph, source, tap);
-		
-		io.close();
-	}
+    for (int i = 0; i < numOfNodes; i++){
+      for (int j = 0; j < numOfNodes; j++){
+        residual[i][j] = graph[i][j];
+      }
+    }
+    // This array is filled by BFS and to store path
+    int pred[] = new int[numOfNodes];
+
+    int flow = 0;  // There is no flow initially
+
+    // Augment the flow while tere is path from source
+    // to sink
+    while (true) {
+
+      boolean visited[] = new boolean[numOfNodes];
+      Arrays.fill(visited, false);
+
+      ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+      queue.add(s);
+      visited[s] = true;
+      pred[s]=-1;
+
+      while (queue.size()!=0) {
+        int i = queue.poll();
+
+        for (int j = 0; j < numOfNodes; j++) {
+          if (visited[j]==false && residual[i][j] > 0) {
+            queue.add(j);
+            pred[j] = i;
+            visited[j] = true;
+          }
+        }
+      }
+
+      if(visited[t] != true){
+        break;
+      }
+
+      int minFlow = Integer.MAX_VALUE;
+      for (int j = t; j != s; j = pred[j]) {
+        int i = pred[j];
+        minFlow = Math.min(minFlow, residual[i][j]);
+      }
+
+      for (int j = t; j != s; j = pred[j]){
+        int i = pred[j];
+        residual[i][j] -= minFlow;
+        residual[j][i] += minFlow;
+      }
+
+      flow += minFlow;
+    }
+
+    Result res = new Result(flow);
+    for (int i = 0; i < graph.length; i++) {
+      for (int j = 0; j < graph[0].length; j++) {
+        if(graph[i][j] - residual[i][j] > 0){
+          res.addEdge(i + " " + j + " " + (graph[i][j] - residual[i][j]));
+        }
+      }
+    }
+
+    return res;
+  }
+
+  public static void main(String[] args) {
+    Kattio io = new Kattio(System.in, System.out);
+    int nodes = io.getInt();
+    int edges = io.getInt();
+    int source = io.getInt();
+    int tap = io.getInt();
+    int[][] graph = new int[nodes][nodes];
+
+    for (int i = 0; i < edges; i++) {
+      int from = io.getInt();
+      int to = io.getInt();
+      int cap = io.getInt();
+      graph[from][to] = cap;
+    }
+
+    Result res = maxFlow(graph, source, tap);
+
+    io.println(nodes + " " + res.getMaxFlow() + " " + res.getNumOfEdges());
+    io.println(res.getEdges());
+    io.close();
+  }
 }

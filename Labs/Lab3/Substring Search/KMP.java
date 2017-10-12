@@ -20,8 +20,7 @@ public class KMP {
       if (j == pattern.length()){
         res.add(i-j);
         j = longestProperPrefix[j-1];
-      }
-      else if (i < text.length() && pat[j] != txt[i]){
+      } else if (i < text.length() && pat[j] != txt[i]){
         if (j != 0){
           j = longestProperPrefix[j-1];
         } else {
