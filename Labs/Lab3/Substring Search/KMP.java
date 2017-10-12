@@ -33,6 +33,7 @@ public class KMP {
     return res;
   }
 
+  //Generate longest proper prefix which is also suffix
   private static void generateLPS(String pattern, int[] longestProperPrefix){
     char[] pat = pattern.toCharArray();
     int len = 0;
