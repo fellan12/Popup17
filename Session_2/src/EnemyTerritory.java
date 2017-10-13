@@ -23,17 +23,17 @@ public class EnemyTerritory {
 		return new Point(seperation, routeLength);
 	}
 	
-//	private static void print(int[][] map) {
-//		System.out.println("-------------------");
-//
-//		for (int i = 0; i < map.length; i++) {
-//			for (int j = 0; j < map[0].length; j++) {
-//				System.out.print(map[j][i]+ " ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println("-------------------");
-//	}
+	private static void print(int[][] map) {
+		System.out.println("-------------------");
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				System.out.print(map[j][i]+ " ");
+			}
+			System.out.println();
+		}
+		System.out.println("-------------------");
+	}
 	
 	private static int bfs(int[][] map, Point start, Point goal) {
 		start.steps = 0;
@@ -73,15 +73,16 @@ public class EnemyTerritory {
 	}
 
 	private static int[][] expandEnemy(int[][] map, Point[] enemies, int seperation) {
+		
 		for (Point enemy : enemies) {
 			int x = enemy.x-seperation;
-			int y = enemy.y-seperation;
+			
 			for (; x < enemy.x+seperation; x++) {
-				if (x < 0 || x > map.length)
+				if (x < 0 || x >= map.length)
 					continue;
 				if (x == enemy.x - seperation || x == enemy.x + seperation) {
-					for (; y <= enemy.y+seperation; y++) {
-						if (y < 0 || y > map[0].length)
+					for (int y = enemy.y-seperation; y <= enemy.y+seperation; y++) {
+						if (y < 0 || y >= map[0].length)
 							continue;
 						if (map[x][y] == START || map[x][y] == GOAL)
 							return null;
@@ -89,17 +90,18 @@ public class EnemyTerritory {
 					}
 				} else {
 					if (enemy.y-seperation >= 0) {
-						if (map[x][y] == START || map[x][y] == GOAL)
+						if (map[x][enemy.y-seperation] == START || map[x][enemy.y-seperation] == GOAL)
 							return null;
 						map[x][enemy.y-seperation] = ENEMY;
 					}
 					if (enemy.y+seperation < map[0].length) {
-						if (map[x][y] == START || map[x][y] == GOAL)
+						if (map[x][enemy.y+seperation] == START || map[x][enemy.y+seperation] == GOAL)
 							return null;
 						map[x][enemy.y+seperation] = ENEMY;
 					}
 				}
 			}
+			
 		}
 		return map;
 	}
