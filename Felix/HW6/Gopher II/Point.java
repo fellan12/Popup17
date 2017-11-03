@@ -21,7 +21,7 @@ public class Point {
     return index;
   }
 
-  public double getDistanceBetween(Point pt){
-    return Math.hypot(x-pt.getX(), y-pt.getY());
+  public double getDistanceBetween(Point other){
+    return Math.hypot(this.x - other.x,this.y - other.y);
   }
 }

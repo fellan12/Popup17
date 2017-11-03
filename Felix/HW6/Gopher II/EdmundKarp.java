@@ -71,25 +71,4 @@ public class EdmundKarp {
     return res;
   }
 
-  public static void main(String[] args) {
-    Kattio io = new Kattio(System.in, System.out);
-    int nodes = io.getInt();
-    int edges = io.getInt();
-    int source = io.getInt();
-    int tap = io.getInt();
-    int[][] graph = new int[nodes][nodes];
-
-    for (int i = 0; i < edges; i++) {
-      int from = io.getInt();
-      int to = io.getInt();
-      int cap = io.getInt();
-      graph[from][to] = cap;
-    }
-
-    Result res = maxFlow(graph, source, tap);
-
-    io.println(nodes + " " + res.getMaxFlow() + " " + res.getNumOfEdges());
-    io.println(res.getEdges());
-    io.close();
-  }
 }
