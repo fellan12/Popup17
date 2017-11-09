@@ -2,9 +2,9 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class EdmundKarp {
-  public static Result maxFlow(int graph[][], int s, int t) {
+  public static Result maxFlow(int[][] graph, int s, int t) {
     int numOfNodes = graph.length;
-    int residual[][] = new int[graph.length][graph[0].length];
+    int residual[][] = new int[numOfNodes][numOfNodes];
 
     for (int i = 0; i < numOfNodes; i++){
       for (int j = 0; j < numOfNodes; j++){
