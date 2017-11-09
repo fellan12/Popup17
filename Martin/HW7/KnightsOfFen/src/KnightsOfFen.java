@@ -4,6 +4,17 @@ import java.util.Scanner;
 
 public class KnightsOfFen {
 
+	/**
+	kof (board):
+		int minMoves = minimumMovesToGoal(board)
+		if minMoves > 10:
+			return -1
+		while not findway(board, minMoves):
+			minMoves++
+			if minMoves > 10
+				return -1
+		return minMoves
+	 */
 	private static int solve(Board b) {
 		int minMoves = Board.minimumMovesToGoal(b);
 		if (minMoves > 10)
@@ -16,17 +27,26 @@ public class KnightsOfFen {
 		return minMoves;
 	}
 
+	/**
+	findway (board, moves):
+		queue <- [board]
+		while queue not empty:
+			current <- remove first from queue
+			if current equals goal
+				return true
+			if minimumMovesToGoal(current) + depth(current) <= moves:
+				add all neighbors to queue
+		return false
+	 */
 	public static boolean findWay(Board start, int moves) {
 		ArrayDeque<DepthBoard> togo = new ArrayDeque<>();
-		long a = 1;
 		togo.add(new DepthBoard(start, 0));
 		while (!togo.isEmpty()) {
 			DepthBoard b = togo.remove();
 			if (Board.equalsGoal(b))
 				return true;
-			if (Board.minimumMovesToGoal(b) + b.getDepth() <= moves && b.getDepth() < moves) {
+			if (Board.minimumMovesToGoal(b) + b.getDepth() <= moves) {
 				for (Board neighbor : Board.getNeighbors(b)) {
-					a++;
 					togo.add(new DepthBoard(neighbor, b.getDepth()+1));
 				}
 			}
