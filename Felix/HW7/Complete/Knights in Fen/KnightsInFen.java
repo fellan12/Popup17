@@ -27,13 +27,13 @@ public class KnightsInFen {
 
   public static int calculateMoves(State init) {
     Set<State> visited = new HashSet<State>();
-    PriorityQueue<Node> open = new PriorityQueue<>(new NodeComperator());
+    PriorityQueue<Node> next = new PriorityQueue<>(new NodeComperator());
 
     //Add initail node to queue and map
-    open.add(new Node(init, 0));
+    next.add(new Node(init, 0));
 
-    while (!open.isEmpty()) {
-      Node current = open.poll();
+    while (!next.isEmpty()) {
+      Node current = next.poll();
 
       // System.out.println("CURRENT NODE:");
       // System.out.println(current);
@@ -50,7 +50,7 @@ public class KnightsInFen {
       for (State child : current.getState().getNeighbors()) {
         if (!visited.contains(child)) {
           Node newNode = new Node(child, current.getMoveCount() + 1);
-          open.add(newNode);
+          next.add(newNode);
           // System.out.println("ADDED STATE: ");
           // System.out.println(newNode);
         } else {
