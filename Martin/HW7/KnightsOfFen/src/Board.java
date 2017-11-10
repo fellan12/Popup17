@@ -42,6 +42,16 @@ public class Board {
 		return true;
 	}
 	
+	/**
+	 minimumMovesToGoal(board):
+	 	res <- 0
+	 	for all squares s in board
+	 		if s != goal(s)
+	 			res += 1
+	 			if specialcase
+	 			 res += 1
+	 	return res
+	 */
 	public static int minimumMovesToGoal(Board board) {
 		int res = 0;
 		Point[] specialCases = new Point[] {
