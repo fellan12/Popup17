@@ -1,26 +1,34 @@
-import java.util.HashSet;
-
 public class Results {
 
 	private int points;
 	private String longestWord;
-	private HashSet<String> wordIndexes;
+	private BoggleTrie words;
+	private int size;
 
 	public Results() {
-		wordIndexes = new HashSet<>();
+		words = new BoggleTrie();
 		points = 0;
+		size = 0;
 		longestWord = "";
 	}
 
 	public void add(String word) {
-		if (!wordIndexes.contains(word)) {
-			wordIndexes.add(word);
+		if (!words.isWord(word)) {
+			words.addWord(word);
+			size++;
 			points += stringToPoints(word);
-			if (word.length() > longestWord.length())
-				longestWord = word;
-			else if (word.length() == longestWord.length() && word.compareTo(longestWord) < 0)
+			if (isLongest(word))
 				longestWord = word;
 		}
+	}
+	
+	private boolean isLongest(String newWord) {
+		if (newWord.length() > longestWord.length())
+			return true;
+		else if (newWord.length() == longestWord.length())
+			return newWord.compareTo(longestWord) < 0;
+		return false;
+			
 	}
 
 	public String getLongestWord() {
@@ -28,7 +36,7 @@ public class Results {
 	}
 
 	public int size() {
-		return wordIndexes.size();
+		return size;
 	}
 
 	public int getPoints() {
@@ -49,7 +57,7 @@ public class Results {
 		case 8:
 			return 11;
 		default:
-			throw new RuntimeException();
+			return 0;
 		}
 	}
 
