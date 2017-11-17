@@ -7,12 +7,13 @@ public class Solver {
 		Scanner io = new Scanner(System.in);
 		while (io.hasNextLine()) {
 			String word = io.nextLine();
-			String[] dictionary = new String[word.length()];
-			for (int i = 0; i < dictionary.length; i++) {
-				dictionary[i] = word;
+			Trie trie = new Trie();
+			int index = 0;
+			while (word.length() > 0) {
+				trie.addWord(word, index);
+				index++;
 				word = word.substring(1);
 			}
-			Trie trie = new Trie(dictionary);
 			List<Integer> sortedIndexes = trie.getSortedIndexes();
 			String[] queries = io.nextLine().split(" ");
 			for (int i = 1; i < queries.length; i++) {
