@@ -1,5 +1,7 @@
 import java.awt.Point;
-
+/**
+ * Authors: Martin Engelin & Felix De Silva
+ */
 public class KattisSolver {
 	
 	public static void main(String[] args) {
