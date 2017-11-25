@@ -28,11 +28,11 @@ public class PolygonPoint {
 				// Check if point is on the line
 				if ((point.y <= p1.y && point.y >= p2.y) || (point.y <= p2.y && point.y >= p1.y))
 					return 0;
-				// otherwise, check if point is below the line
-				if (point.y < p1.y)
-					intersections++;
 				continue;
 			}
+			// If point has same x as one of the p1/p2, only count if its the leftmost
+			if (p2.x > p1.x && p2.x == point.x || p1.x > p2.x && p1.x == point.x)
+				continue;
 			double slope = slope(p1, p2);
 			double y = point.y + (p2.x-point.x)*slope;
 			if (Math.abs(p2.y - y) < 0.000000001)
