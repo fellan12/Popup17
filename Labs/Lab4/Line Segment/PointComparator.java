@@ -1,6 +1,11 @@
-import java.awt.Point;
 import java.util.Comparator;
 
+/**
+ * Authors Felix De Silva & Martin Engelin
+ * 
+ * Comparator that compares two points according to which one has the lowest x.
+ * If both have the same x-value, compares according to whish has the lowest y.
+ */
 public class PointComparator implements Comparator<Point> {
 	@Override
 	public int compare(Point p1, Point p2) {
