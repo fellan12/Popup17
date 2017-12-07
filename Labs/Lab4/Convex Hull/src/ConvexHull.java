@@ -1,7 +1,9 @@
 import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.Arrays;
-
+/**
+ * Authors Martin Engelin & Felix De Silva
+ */
 public final class ConvexHull {
 	/**
 	 * Calculates the convex hull of a set of points.

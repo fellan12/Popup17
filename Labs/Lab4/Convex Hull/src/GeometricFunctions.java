@@ -1,5 +1,7 @@
 import java.awt.Point;
-
+/**
+ * Authors Martin Engelin & Felix De Silva
+ */
 public class GeometricFunctions {
 	
 	/**
@@ -17,7 +19,8 @@ public class GeometricFunctions {
 	}
 	
 	/**
-	 * Returns the index of the lowest point in an array of points
+	 * Returns the index of the lowest point in an array of points.
+	 * If there are several with same low y, returns the leftmost one.
 	 */
 	public static int findLowestPointIndex(Point[] points) {
 		int lowestY = 0;
