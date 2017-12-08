@@ -6,11 +6,15 @@ public class PolygonPoint {
 	
 	/**
 	 * Determines whether a point is inside a simple polygon.
+	 * 
+	 * If point is inside of polygon, returns 1
+	 * If point is outside of polygon, returns -1
+	 * If point is on the border, returns 0
 	 */
 	public static int pointInPolygon(Point[] polygon, Point point) {
 		int intersections = 0;
 		/*
-		 * Idea: If we draw a line from the point upwards, if the amount of intersecting
+		 * Idea: We draw a line from the point upwards, if the amount of intersecting
 		 * lines in the polygon is even, point is outside polygon, otherwise inside.
 		 */
 		for (int i = 0; i < polygon.length; i++) {
@@ -33,9 +37,12 @@ public class PolygonPoint {
 			// If point has same x as one of the p1/p2, only count if its the leftmost
 			if (p2.x > p1.x && p2.x == point.x || p1.x > p2.x && p1.x == point.x)
 				continue;
+			
+			// Determine whether point is above, below or on line
 			double slope = slope(p1, p2);
 			double y = point.y + (p2.x-point.x)*slope;
-			if (Math.abs(p2.y - y) < 0.000000001)
+			
+			if (p2.y == y)
 				return 0;
 			if (p2.y > y)
 				intersections++;
