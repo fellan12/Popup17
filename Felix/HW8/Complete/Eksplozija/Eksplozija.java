@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Eksplozija {
 
-  public static void main(String args[]) throws IOException{
+  public static void main(String args[]){
     Kattio io = new Kattio(System.in);
     char[] word = io.getWord().toCharArray();
     char[] pat = io.getWord().toCharArray();
@@ -33,10 +33,10 @@ public class Eksplozija {
         idx -= pat.length;
       }
 
-      // System.out.println("c: " + c);
-      // System.out.println("matchCount: " + Arrays.toString(matchCount));
-      // System.out.println("ans: " + Arrays.toString(ans));
-      // System.out.println("idx: " + idx);
+      System.out.println("CurrentChar: " + c);
+      System.out.println("MatchCount: " + Arrays.toString(matchCount));
+      System.out.println("Answer: " + Arrays.toString(ans));
+      System.out.println("idx: " + idx);
     }
 
     if (idx == 0)

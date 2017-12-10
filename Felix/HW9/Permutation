@@ -1,0 +1,39 @@
+
+How to generate string permutations
+NextStringPermutation(x):
+  Find max i such that xi < xi+1 (i.e xi+1 >= ... >= xn)
+  Find max j such that xj > xi
+  Swap (xj, xi)
+  Reverse (xi+1 .... xn)
+
+Time complexity
+O(n)
+
+Example
+  round 1
+  idx   1 2 3 4 5
+  word  p o p u p
+
+  i = 3 (p < u)
+  j = 4 (u > p)
+
+  swap (3, 4) -> poupp
+
+  reverse -> poupp
+
+  round 2
+  idx  1 2 3 4 5
+  word p o u p p
+
+  i = 2 (o < u)
+  j = 5 (p > o)
+
+  swap (2, 5) -> ppupo
+
+  reverse -> ppopu
+
+Generate binary permutations with bit fiddling
+nextBinaryPermutation(x)
+    c <- X and -X (least significant bit)
+    r <- x+c
+    return (x xor r) / (4*c) or r

@@ -11,10 +11,12 @@ public class SieveOfEratosthenes {
     numOfPrimes = n-1;
     primes.set(1, n, true);
 
+    // For 2 -> sqrt(n)
     for (int i = 2; i <= Math.ceil(Math.sqrt(n)); i++) {
 
       // If prime[i-1] is not changed, then it is a prime
       if (primes.get(i - 1)) {
+
         // Update all multiples of i
         for (int j = i * i; j <= n; j += i) {
           if(primes.get(j-1)){
