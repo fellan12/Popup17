@@ -135,6 +135,16 @@ public class Slikar {
       }
     }
 
+    System.out.println();
+    System.out.println("MAP");
+    printMatrix(map);
+    System.out.println();
+    System.out.println("FLOOD");
+    printMatrix(flood);
+    System.out.println();
+    System.out.println("PAINTER");
+    printMatrix(painter);
+
     //Did painter get to the den in time?
     if(painter[denX][denY] != -1){
       io.println(painter[denX][denY]);
