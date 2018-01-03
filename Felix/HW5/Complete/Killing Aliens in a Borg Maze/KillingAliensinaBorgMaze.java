@@ -43,7 +43,6 @@ public class KillingAliensinaBorgMaze {
 				Dijkstra.dijkstra(s);
 
 				//Create edge from s to all other nodes
-				//and add to edgeList
 				for (Node a : dijkstraNodes) {
 					if(!s.equals(a)){
 						Node n1 = s.copy();
@@ -71,28 +70,13 @@ public class KillingAliensinaBorgMaze {
 				resetNodes(graph);
 			}
 
-			//Create graph object needed for Kruskal's Algorithm
+			//Create graph Object needed for Kruskal's Algorithm
 			Graph g = new Graph(newIndex, edgeList.size());
 			g.setEdgeList(edgeList);
 
 			//Run kruskal and calculate the sum of all the weights in the result tree
-			edgeList = Kruskal.kruskal(g);
-			for (Edge e : edgeList) {
-				if(e.getStartNode().getStart()){
-					System.out.println("S");
-				} else {
-					System.out.println("A");
-				}
-				System.out.println(e);
-				if(e.getEndNode().getStart()){
-					System.out.println("S");
-				} else {
-					System.out.println("A");
-				}
-			}
-
 			int sum = 0;
-			for (Edge e : edgeList) {
+			for (Edge e : Kruskal.kruskal(g)) {
 				sum += e.getWeight();
 			}
 			System.out.println(sum);
